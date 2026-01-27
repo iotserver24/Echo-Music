@@ -37,9 +37,14 @@ cd /path/to/Echo-Music-Desktop
 # Install dependencies
 flutter pub get
 
-# Build all Linux packages
+# Build all Linux packages (x86_64)
 flutter_distributor release --name dev --jobs release-dev-linux-deb,release-dev-linux-appimage,release-dev-linux-rpm
+
+# Build ARM64 packages (requires ARM64 Linux host)
+flutter_distributor release --name dev-linux-arm64 --jobs release-dev-linux-arm64-deb,release-dev-linux-arm64-appimage,release-dev-linux-arm64-rpm
 ```
+
+**Note**: ARM64 packages can only be built on ARM64 Linux hosts. Cross-compilation from x86_64 to ARM64 is not supported by Flutter.
 
 ### Build Specific Package Type
 ```bash
@@ -58,14 +63,20 @@ Packages will be created in: `dist/1.0.0+0/`
 
 ## Option 2: GitHub Actions (Recommended)
 
-A GitHub Actions workflow has been created at `.github/workflows/build-linux.yml`.
+A GitHub Actions workflow has been created at `.github/workflows/build-linux-desktop.yml`.
+
+### Supported Architectures
+
+The workflow builds packages for both architectures:
+- **x86_64** (64-bit Intel/AMD) - runs on standard Ubuntu runners
+- **ARM64** (64-bit ARM) - runs on native ARM64 runners to avoid cross-compilation issues
 
 ### Trigger the Workflow
 
 **Method 1: Manual Trigger**
 1. Go to your GitHub repository
 2. Click "Actions" tab
-3. Select "Build Linux Packages" workflow
+3. Select "Build Linux desktop packages" workflow
 4. Click "Run workflow"
 
 **Method 2: Tag-based Release**
@@ -76,7 +87,7 @@ git push origin v1.0.0
 ```
 
 The workflow will automatically:
-- Build all three package types
+- Build all three package types for both x86_64 and ARM64
 - Upload packages as artifacts
 - Create a GitHub Release (if triggered by tag)
 
