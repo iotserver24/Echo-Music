@@ -3,7 +3,7 @@ display_name: "Echo Music"
 package_name: echo-music
 icon: "icon.png"
 license: "GPL-3.0-or-later"
-section: sound
+section: "sound"
 priority: optional
 maintainer:
   name: "Echo Music"
