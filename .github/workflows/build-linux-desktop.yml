@@ -43,6 +43,12 @@ jobs:
           flutter pub global activate flutter_distributor
           echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
 
+      - name: Copy icon for AppImage packaging
+        working-directory: Desktop
+        run: |
+          mkdir -p linux/packaging/appimage
+          cp icons/Echo.png linux/packaging/appimage/icon.png
+
       - name: Build Linux package (AppImage only)
         working-directory: Desktop
         run: |
