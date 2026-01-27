@@ -6,6 +6,10 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   linux-packages:
     name: Build Linux (${{ matrix.arch }})
@@ -57,4 +61,15 @@ jobs:
         with:
           name: echo-linux-${{ matrix.arch }}
           path: Desktop/dist/**
+
+      - name: Attach packages to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Desktop/dist/**/*.AppImage
+            Desktop/dist/**/*.deb
+            Desktop/dist/**/*.rpm
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
