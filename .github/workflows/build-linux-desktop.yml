@@ -43,11 +43,11 @@ jobs:
           flutter pub global activate flutter_distributor
           echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
 
-      - name: Build Linux packages (AppImage/DEB/RPM)
+      - name: Build Linux packages (AppImage/RPM)
         working-directory: Desktop
         run: |
           flutter_distributor release --name dev --jobs \
-            release-dev-linux-deb,release-dev-linux-appimage,release-dev-linux-rpm
+            release-dev-linux-appimage,release-dev-linux-rpm
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -72,7 +72,6 @@ jobs:
         with:
           files: |
             artifacts/x86_64/**/*.AppImage
-            artifacts/x86_64/**/*.deb
             artifacts/x86_64/**/*.rpm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
