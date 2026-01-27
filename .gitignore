@@ -245,3 +245,15 @@ node_modules/
 
 # TernJS port file
 .tern-port
+
+# Flutter desktop build outputs
+Desktop/build/
+Desktop/dist/
+
+# Local helper tools
+Desktop/appimagetool-*.AppImage
+
+# Desktop release artifacts
+*.AppImage
+*.deb
+*.rpm

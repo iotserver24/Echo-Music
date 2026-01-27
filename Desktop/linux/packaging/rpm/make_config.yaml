@@ -1,0 +1,14 @@
+app_id: fun.echomusic.desktop
+display_name: "Echo Music"
+package_name: echo-music
+icon: "icon.png"
+license: "GPL-3.0-or-later"
+summary: "Echo Music desktop client"
+group: "Applications/Multimedia"
+requires:
+  - gtk3
+  - libstdc++
+categories:
+  - AudioVideo
+  - Audio
+  - Player

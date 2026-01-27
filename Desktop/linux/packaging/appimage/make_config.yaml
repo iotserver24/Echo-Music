@@ -1,0 +1,9 @@
+app_id: fun.echomusic.desktop
+display_name: "Echo Music"
+package_name: echo-music
+icon: "icon.png"
+license: "GPL-3.0-or-later"
+categories:
+  - AudioVideo
+  - Audio
+  - Player

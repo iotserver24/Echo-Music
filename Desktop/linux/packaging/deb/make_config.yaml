@@ -1,0 +1,17 @@
+app_id: fun.echomusic.desktop
+display_name: "Echo Music"
+package_name: echo-music
+icon: "icon.png"
+license: "GPL-3.0-or-later"
+section: sound
+priority: optional
+maintainer:
+  name: "Echo Music"
+  email: "support@echomusic.fun"
+depends:
+  - libgtk-3-0
+  - libstdc++6
+categories:
+  - AudioVideo
+  - Audio
+  - Player

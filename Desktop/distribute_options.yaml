@@ -28,3 +28,24 @@ releases:
         package:
           platform: windows
           target: exe
+
+  - name: dev-linux-arm64
+    jobs:
+      - name: release-dev-linux-arm64-deb
+        package:
+          platform: linux
+          target: deb
+          build_args:
+            target-platform: linux-arm64
+      - name: release-dev-linux-arm64-appimage
+        package:
+          platform: linux
+          target: appimage
+          build_args:
+            target-platform: linux-arm64
+      - name: release-dev-linux-arm64-rpm
+        package:
+          platform: linux
+          target: rpm
+          build_args:
+            target-platform: linux-arm64
