@@ -13,10 +13,18 @@ permissions:
 jobs:
   linux-packages:
     name: Build Linux (${{ matrix.arch }})
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
-        arch: [x86_64]
+        include:
+          - arch: x86_64
+            runner: ubuntu-latest
+            appimage_arch: x86_64
+            dist_job: release-dev-linux-appimage
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+            appimage_arch: aarch64
+            dist_job: release-dev-linux-arm64-appimage
 
     steps:
       - name: Checkout repository
@@ -35,7 +43,7 @@ jobs:
 
       - name: Install appimagetool
         run: |
-          sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool
+          sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${{ matrix.appimage_arch }}.AppImage -O /usr/local/bin/appimagetool
           sudo chmod +x /usr/local/bin/appimagetool
 
       - name: Enable Linux desktop
@@ -57,7 +65,7 @@ jobs:
         working-directory: Desktop
         run: |
           flutter_distributor release --name dev --jobs \
-            release-dev-linux-appimage
+            ${{ matrix.dist_job }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -71,17 +79,16 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - name: Download x86_64 artifacts
+      - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          name: echo-linux-x86_64
-          path: artifacts/x86_64
+          path: artifacts
 
       - name: Attach packages to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            artifacts/x86_64/**/*.AppImage
+            artifacts/**/*.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
