@@ -15,6 +15,7 @@ jobs:
     name: Build Linux (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - arch: x86_64
@@ -41,7 +42,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev libmpv-dev fuse
+            clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libmpv-dev fuse build-essential
 
       - name: Install appimagetool
         run: |
