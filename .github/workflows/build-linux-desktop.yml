@@ -20,10 +20,12 @@ jobs:
           - arch: x86_64
             runner: ubuntu-latest
             appimage_arch: x86_64
+            flutter_arch: x64
             dist_job: release-dev-linux-appimage
           - arch: arm64
             runner: ubuntu-24.04-arm
             appimage_arch: aarch64
+            flutter_arch: arm64
             dist_job: release-dev-linux-arm64-appimage
 
     steps:
@@ -34,6 +36,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          architecture: ${{ matrix.flutter_arch }}
 
       - name: Install Linux desktop dependencies
         run: |
